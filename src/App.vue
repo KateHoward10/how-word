@@ -1,11 +1,21 @@
 <template>
   <h1>How-word</h1>
+  <Row />
+  <Row />
+  <Row />
+  <Row />
+  <Row />
+  <Row />
 </template>
 
 <script>
+import Row from './components/Row.vue';
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Row
+  }
 }
 </script>
 
@@ -24,5 +34,9 @@ body {
   color: #fff;
   padding: 1rem;
   text-transform: uppercase;
+}
+
+h1 {
+  margin: 2px;
 }
 </style>
