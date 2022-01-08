@@ -8,11 +8,17 @@
       maxlength="1"
       class="square"
       :class="{
-        'incorrect': l && !currentWord.includes(l),
-        'right-letter': l && currentWord.includes(l) && currentWord[i] !== l,
-        'right-place': l && currentWord[i] === l
+        'incorrect': checked && l && !currentWord.includes(l),
+        'right-letter': checked && l && currentWord.includes(l) && currentWord[i] !== l,
+        'right-place': checked && l && currentWord[i] === l
       }"
+      :disabled="disabled"
     />
+    <button
+      @click="checkGuess(guess.join(''))"
+      class="submit-button"
+      :disabled="!guess.every(l => l)"
+    >✐</button>
  </div>
 </template>
 
@@ -28,6 +34,9 @@ export default {
   },
   props: {
     currentWord: String,
+    checkGuess: Function,
+    disabled: Boolean,
+    checked: Boolean
   },
 }
 </script>
@@ -42,8 +51,8 @@ export default {
 }
 
 .square {
-  height: 15vw;
-  width: 15vw;
+  height: 10vw;
+  width: 10vw;
   max-height: 50px;
   max-width: 50px;
   background-color: transparent;
@@ -61,6 +70,10 @@ export default {
   border-color: #eee;
 }
 
+.square:disabled {
+  border-color: #333;
+}
+
 .right-place {
   background-color: green;
   border-color: green;
@@ -74,5 +87,28 @@ export default {
 
 .incorrect {
   background-color: #666;
+}
+
+.submit-button {
+  height: 10vw;
+  width: 10vw;
+  max-height: 50px;
+  max-width: 50px;
+  background-color: #000;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background-color: #111;
+  color: #444;
+  cursor: default;
 }
 </style>
