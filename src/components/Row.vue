@@ -1,12 +1,34 @@
 <template>
   <div class="row">
-    <input v-for="index in [0,1,2,3,4]" :key="index" type="text" class="square" />
+    <input
+      v-for="(l, i) in guess"
+      :key="i"
+      v-model="guess[i]"
+      type="text"
+      maxlength="1"
+      class="square"
+      :class="{
+        'incorrect': l && !currentWord.includes(l),
+        'right-letter': l && currentWord.includes(l) && currentWord[i] !== l,
+        'right-place': l && currentWord[i] === l
+      }"
+    />
  </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
   name: 'Row',
+  setup() {
+    const guess = ref(['','','','','']);
+
+    return { guess };
+  },
+  props: {
+    currentWord: String,
+  },
 }
 </script>
 
@@ -26,6 +48,31 @@ export default {
   max-width: 50px;
   background-color: transparent;
   border: 2px solid #666;
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
   margin: 3px;
+  outline: none;
+}
+
+.square:focus {
+  border-color: #eee;
+}
+
+.right-place {
+  background-color: green;
+  border-color: green;
+}
+
+.right-letter {
+  background-color: yellow;
+  border-color: yellow;
+  color: #222;
+}
+
+.incorrect {
+  background-color: #666;
 }
 </style>
