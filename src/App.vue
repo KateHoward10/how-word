@@ -1,5 +1,5 @@
 <template>
-  <h1>How-word</h1>
+  <h1 @click="generateWord">How-word</h1>
   <Row />
   <Row />
   <Row />
@@ -10,9 +10,22 @@
 
 <script>
 import Row from './components/Row.vue';
+const randomWords = require('random-words');
 
 export default {
   name: 'App',
+  setup() {
+    function generateWord() {
+      let newWord = randomWords({ exactly: 1, maxLength: 5 });
+      if (newWord[0].length === 5) {
+        console.log(newWord[0]);
+      } else {
+        generateWord();
+      }
+    }
+
+    return { generateWord };
+  },
   components: {
     Row
   }
@@ -38,5 +51,6 @@ body {
 
 h1 {
   margin: 2px;
+  cursor: pointer;
 }
 </style>
