@@ -18,7 +18,7 @@
       @click="checkGuess(guess.join(''))"
       class="submit-button"
       :disabled="!guess.every(l => l)"
-    >✐</button>
+    >➡</button>
  </div>
 </template>
 
@@ -98,7 +98,6 @@ export default {
   color: #fff;
   font-size: 24px;
   font-weight: bold;
-  text-align: center;
   margin: 3px;
 }
 

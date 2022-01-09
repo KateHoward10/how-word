@@ -12,10 +12,12 @@
     :disabled="!currentWord || numberOfGuesses < i"
     :checked="numberOfGuesses > i"
   />
+  <Keyboard />
 </template>
 
 <script>
 import { ref, computed } from 'vue';
+import Keyboard from './components/Keyboard.vue';
 import Row from './components/Row.vue';
 const randomWords = require('random-words');
 
@@ -57,6 +59,7 @@ export default {
     return { currentWord, guesses, numberOfGuesses, generateWord, checkGuess, message };
   },
   components: {
+    Keyboard,
     Row
   }
 }
@@ -91,6 +94,9 @@ h1 {
 }
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   outline: none;
   cursor: pointer;
   border: none;
@@ -98,9 +104,9 @@ button {
 }
 
 .play-button {
-  margin-left: 8px;
+  margin-left: 12px;
   cursor: pointer;
-  background-color: #888;
+  background-color: green;
   border: none;
   color: #fff;
   font-size: 16px;
