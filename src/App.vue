@@ -1,6 +1,9 @@
 <template>
-  <h1 @click="generateWord">How-word</h1>
-  <p>{{ message }}</p>
+  <div class="header">
+    <h1>How-word</h1>
+    <button class="play-button" @click="generateWord">Play</button>
+  </div>
+  <p v-if="message">{{ message }}</p>
   <Row
     v-for="(guess, i) in guesses"
     :key="i"
@@ -27,11 +30,16 @@ export default {
       set: (value) => guesses.value = value
     });
 
+    function reset() {
+      guesses.value = ['','','','','',''];
+      message.value = '';
+    }
+
     function generateWord() {
       let newWord = randomWords({ exactly: 1, maxLength: 5 });
       if (newWord[0].length === 5) {
+        reset();
         currentWord.value = newWord[0];
-        console.log(currentWord.value);
       } else {
         generateWord();
       }
@@ -71,8 +79,37 @@ body {
   text-transform: uppercase;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 h1 {
-  margin: 2px;
+  margin: 5px 0;
+}
+
+button {
+  outline: none;
   cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.play-button {
+  margin-left: 8px;
+  cursor: pointer;
+  background-color: #888;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 5px;
+}
+
+p {
+  margin: 3px 0;
 }
 </style>

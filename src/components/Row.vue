@@ -95,15 +95,11 @@ export default {
   max-height: 50px;
   max-width: 50px;
   background-color: #000;
-  border: none;
-  border-radius: 4px;
   color: #fff;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
   margin: 3px;
-  outline: none;
-  cursor: pointer;
 }
 
 .submit-button:disabled {
