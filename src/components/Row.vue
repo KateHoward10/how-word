@@ -71,22 +71,6 @@ export default {
   border-color: #333;
 }
 
-.right-place {
-  background-color: green;
-  border-color: green;
-}
-
-.right-letter {
-  background-color: yellow;
-  border-color: yellow;
-  color: #222;
-}
-
-.incorrect {
-  background-color: #444;
-  border-color: #444;
-}
-
 .submit-button {
   height: 10vw;
   width: 10vw;

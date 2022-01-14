@@ -14,7 +14,7 @@
     :checked="numberOfGuesses > i"
     :activeIndex="activeIndex"
   />
-  <Keyboard :selectLetter="selectLetter" :deleteLetter="deleteLetter" />
+  <Keyboard :rows="rows" :letterClasses="letterClasses" :selectLetter="selectLetter" :deleteLetter="deleteLetter" />
 </template>
 
 <script>
@@ -33,9 +33,11 @@ export default {
     const activeRow = ref(null);
     const activeIndex = ref(0);
     const numberOfGuesses = computed({
-      get: () => guesses.value.filter(g => g.length === 5).length,
-      set: (value) => guesses.value = value
+      get: () => guesses.value.filter(g => g.length === 5).length
     });
+    const alphabet = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'];
+    const rows = [[...alphabet.slice(0,10)],[...alphabet.slice(10,19)],[...alphabet.slice(19,26)]];
+    const letterClasses = ref(alphabet.reduce((a, v) => ({ ...a, [v]: null}), {}));
 
     function reset() {
       guesses.value = ['','','','','',''];
@@ -64,6 +66,20 @@ export default {
       } else if (numberOfGuesses.value === 6) {
         message.value = `Bad luck, the answer was ${currentWord.value}`;
       } else {
+        for (let i = 0; i < 5; i++) {
+          const letter = currentGuess.value[i];
+          let newClasses = letterClasses.value;
+          let newClass = null;
+          if (letter === currentWord.value[i]) {
+            newClass = "right-place";
+          } else if (currentWord.value.includes(letter)) {
+            newClass = "right-letter";
+          } else {
+            newClass = "incorrect";
+          }
+          if (newClass) newClasses[letter] = newClass;
+          letterClasses.value = newClasses;
+        }
         currentGuess.value = '';
         activeIndex.value = 0;
         activeRow.value++;
@@ -82,7 +98,7 @@ export default {
       }
     }
 
-    return { currentWord, guesses, currentGuess, message, activeRow, activeIndex, numberOfGuesses, generateWord, checkGuess, selectLetter, deleteLetter };
+    return { currentWord, guesses, currentGuess, message, activeRow, activeIndex, numberOfGuesses, generateWord, checkGuess, selectLetter, deleteLetter, rows, letterClasses };
   },
   components: {
     Keyboard,
@@ -144,4 +160,22 @@ button {
 p {
   margin: 3px 0;
 }
+
+.right-place {
+  background-color: green;
+  border-color: green;
+}
+
+.right-letter {
+  background-color: yellow;
+  border-color: yellow;
+  color: #222;
+}
+
+.incorrect {
+  background-color: #444;
+  border-color: #444;
+  color: #ddd;
+}
+
 </style>
