@@ -1,42 +1,37 @@
 <template>
   <div class="row">
-    <input
-      v-for="(l, i) in guess"
+    <div
+      v-for="i in [0,1,2,3,4]"
       :key="i"
-      v-model="guess[i]"
       type="text"
       maxlength="1"
       class="square"
       :class="{
-        'incorrect': checked && l && !currentWord.includes(l),
-        'right-letter': checked && l && currentWord.includes(l) && currentWord[i] !== l,
-        'right-place': checked && l && currentWord[i] === l
+        'active': !disabled && activeIndex === i,
+        'incorrect': checked && guess[i] && !currentWord.includes(guess[i]),
+        'right-letter': checked && guess[i] && currentWord.includes(guess[i]) && currentWord[i] !== guess[i],
+        'right-place': checked && guess[i] && currentWord[i] === guess[i]
       }"
       :disabled="disabled"
-    />
+    >{{ guess[i] }}</div>
     <button
-      @click="checkGuess(guess.join(''))"
+      @click="checkGuess"
       class="submit-button"
-      :disabled="!guess.every(l => l)"
+      :disabled="checked || guess.length !== 5"
     >➡</button>
  </div>
 </template>
 
 <script>
-import { ref } from 'vue'
-
 export default {
   name: 'Row',
-  setup() {
-    const guess = ref(['','','','','']);
-
-    return { guess };
-  },
   props: {
     currentWord: String,
-    checkGuess: Function,
+    guess: String,
     disabled: Boolean,
-    checked: Boolean
+    checked: Boolean,
+    activeIndex: Number,
+    checkGuess: Function
   },
 }
 </script>
@@ -55,6 +50,9 @@ export default {
   width: 10vw;
   max-height: 50px;
   max-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
   border: 2px solid #666;
   color: #fff;
@@ -63,10 +61,9 @@ export default {
   text-transform: uppercase;
   text-align: center;
   margin: 3px;
-  outline: none;
 }
 
-.square:focus {
+.active {
   border-color: #eee;
 }
 
@@ -86,7 +83,8 @@ export default {
 }
 
 .incorrect {
-  background-color: #666;
+  background-color: #444;
+  border-color: #444;
 }
 
 .submit-button {

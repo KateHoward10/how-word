@@ -4,6 +4,7 @@
       v-for="(l, i) in letters"
       :key="i"
       class="key-button"
+      @click="selectLetter(l)"
     >{{ l }}</button>
     <button v-if="i === 2" class="key-button">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -24,6 +25,9 @@ export default {
     ];
 
     return { rows };
+  },
+  props: {
+    selectLetter: Function
   }
 }
 </script>
