@@ -14,7 +14,7 @@
     :checked="numberOfGuesses > i"
     :activeIndex="activeIndex"
   />
-  <Keyboard :selectLetter="selectLetter" />
+  <Keyboard :selectLetter="selectLetter" :deleteLetter="deleteLetter" />
 </template>
 
 <script>
@@ -75,7 +75,14 @@ export default {
       if (activeIndex.value < 4) activeIndex.value++;
     }
 
-    return { currentWord, guesses, currentGuess, message, activeRow, activeIndex, numberOfGuesses, generateWord, checkGuess, selectLetter };
+    function deleteLetter() {
+      if (currentGuess.value.length) {
+        currentGuess.value = currentGuess.value.slice(0, -1);
+        if (activeIndex.value > 0) activeIndex.value--;
+      }
+    }
+
+    return { currentWord, guesses, currentGuess, message, activeRow, activeIndex, numberOfGuesses, generateWord, checkGuess, selectLetter, deleteLetter };
   },
   components: {
     Keyboard,
