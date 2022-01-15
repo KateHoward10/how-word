@@ -76,19 +76,20 @@ export default {
 }
 
 .submit-button {
+  width: 7vw;
   height: 10vw;
   max-height: 50px;
-  max-width: 50px;
   background-color: #000;
   color: #fff;
   font-size: 24px;
   font-weight: bold;
   margin: 3px;
+  padding: 5px 2px;
 }
 
 .submit-button:disabled {
   background-color: #111;
-  color: #444;
+  color: #555;
   cursor: default;
 }
 </style>
