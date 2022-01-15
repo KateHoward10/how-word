@@ -120,7 +120,7 @@ body {
   text-align: center;
   background-color: #222;
   color: #fff;
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   text-transform: uppercase;
 }
 
@@ -177,5 +177,4 @@ p {
   border-color: #444;
   color: #ddd;
 }
-
 </style>

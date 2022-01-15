@@ -36,10 +36,9 @@ export default {
 }
 
 .key-button {
-  width: 6vw;
-  height: 6vw;
+  min-width: 6vw;
   max-width: 40px;
-  max-height: 40px;
+  height: 40px;
   background-color: #666;
   color: #fff;
   margin: 3px;
