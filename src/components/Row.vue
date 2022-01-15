@@ -77,7 +77,6 @@ export default {
 
 .submit-button {
   height: 10vw;
-  width: 10vw;
   max-height: 50px;
   max-width: 50px;
   background-color: #000;

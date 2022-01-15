@@ -8,7 +8,7 @@
     v-for="(guess, i) in guesses"
     :key="i"
     :guess="activeRow === i ? currentGuess : guess"
-    :checkGuess="(g) => checkGuess(i, g)"
+    :checkGuess="checkGuess"
     :currentWord="currentWord"
     :disabled="!currentWord || numberOfGuesses < i"
     :checked="numberOfGuesses > i"
@@ -88,8 +88,10 @@ export default {
     }
 
     function selectLetter(letter) {
-      currentGuess.value = currentGuess.value + letter;
-      if (activeIndex.value < 4) activeIndex.value++;
+      if (currentGuess.value.length < 5) {
+        currentGuess.value = currentGuess.value + letter;
+        if (activeIndex.value < 4) activeIndex.value++;
+      }
     }
 
     function deleteLetter() {
