@@ -4,7 +4,7 @@
       v-for="(l, i) in letters"
       :key="i"
       class="key-button"
-      :class="letterClasses[l]"
+      :class="classes[l]"
       @click="selectLetter(l)"
     >{{ l }}</button>
     <button v-if="i === 2" class="key-button" @click="deleteLetter">
@@ -22,7 +22,7 @@ export default {
     selectLetter: Function,
     deleteLetter: Function,
     rows: Array,
-    letterClasses: Object
+    classes: Object
   }
 }
 </script>

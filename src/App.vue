@@ -14,7 +14,7 @@
     :checked="numberOfGuesses > i"
     :activeIndex="activeIndex"
   />
-  <Keyboard :rows="rows" :letterClasses="letterClasses" :selectLetter="selectLetter" :deleteLetter="deleteLetter" />
+  <Keyboard :rows="rows" :classes="classes" :selectLetter="selectLetter" :deleteLetter="deleteLetter" />
 </template>
 
 <script>
@@ -37,7 +37,7 @@ export default {
     });
     const alphabet = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'];
     const rows = [[...alphabet.slice(0,10)],[...alphabet.slice(10,19)],[...alphabet.slice(19,26)]];
-    const letterClasses = ref(alphabet.reduce((a, v) => ({ ...a, [v]: null}), {}));
+    const classes = ref(alphabet.reduce((a, v) => ({ ...a, [v]: null}), {}));
 
     function reset() {
       guesses.value = ['','','','','',''];
@@ -45,6 +45,7 @@ export default {
       message.value = '';
       activeRow.value = 0;
       activeIndex.value = 0;
+      classes.value = alphabet.reduce((a, v) => ({ ...a, [v]: null}), {});
     }
 
     function generateWord() {
@@ -68,7 +69,7 @@ export default {
       } else {
         for (let i = 0; i < 5; i++) {
           const letter = currentGuess.value[i];
-          let newClasses = letterClasses.value;
+          let newClasses = classes.value;
           let newClass = null;
           if (letter === currentWord.value[i]) {
             newClass = "right-place";
@@ -78,7 +79,7 @@ export default {
             newClass = "incorrect";
           }
           if (newClass) newClasses[letter] = newClass;
-          letterClasses.value = newClasses;
+          classes.value = newClasses;
         }
         currentGuess.value = '';
         activeIndex.value = 0;
@@ -98,7 +99,7 @@ export default {
       }
     }
 
-    return { currentWord, guesses, currentGuess, message, activeRow, activeIndex, numberOfGuesses, generateWord, checkGuess, selectLetter, deleteLetter, rows, letterClasses };
+    return { currentWord, guesses, currentGuess, message, activeRow, activeIndex, numberOfGuesses, generateWord, checkGuess, selectLetter, deleteLetter, rows, classes };
   },
   components: {
     Keyboard,
