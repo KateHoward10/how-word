@@ -158,6 +158,11 @@ button {
   padding: 5px;
 }
 
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 p {
   margin: 3px 0;
 }
