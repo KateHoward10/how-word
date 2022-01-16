@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <h1>How-word</h1>
-    <button class="play-button" @click="generateWord">Play</button>
+    <button v-if="message" class="play-button" @click="generateWord">Replay</button>
   </div>
   <p v-if="message">{{ message }}</p>
   <Row
