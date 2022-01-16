@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import Keyboard from './components/Keyboard.vue';
 import Row from './components/Row.vue';
 const randomWords = require('random-words');
@@ -38,6 +38,8 @@ export default {
     const alphabet = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'];
     const rows = [[...alphabet.slice(0,10)],[...alphabet.slice(10,19)],[...alphabet.slice(19,26)]];
     const classes = ref(alphabet.reduce((a, v) => ({ ...a, [v]: null}), {}));
+
+    onMounted(() => generateWord());
 
     function reset() {
       guesses.value = ['','','','','',''];
